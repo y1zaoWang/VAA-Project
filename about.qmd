@@ -1,9 +1,17 @@
 ---
 title: "About"
+format:
+  html:
+    mermaid:
+      theme: dark
 ---
 
-About this site
+About The Team
 
-```{r}
-1 + 1
+```{mermaid}
+flowchart TD
+A{Finding\nNEMO}--- B[Network-Enabled Maritime Observations]
+B --> C(Hailey)
+B --> D(Leonard)
+B --> E(Shaun)
 ```

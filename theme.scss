@@ -1,0 +1,86 @@
+/*-- scss:functions --*/
+
+/*-- scss:defaults --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,300;1,400&family=Tilt+Neon&display=swap');
+
+// Colors
+$slate-green: #4B787D;
+$dark-blue: #163759;
+$eggshell: #F8F3E6;
+$gray: #64605f;
+$light-gray: #dfdfeb;
+$blue: #4d5887;
+$pale-green: #C3F4DD;
+$orange: #FCD073;
+$salmon:  #D86171;
+
+// Base document colors
+$navbar-bg: $slate-green; // navbar
+$navbar-fg: $light-gray; // navbar foreground elements
+$navbar-hl: $eggshell; // highlight color when hovering over navbar links
+$body-bg: $light-gray; // page background 
+$body-color: $dark-blue; // page text 
+$footer-bg: $light-gray; // footer 
+$link-color: $slate-green; // hyperlinks 
+
+// fonts
+
+$font-family: 'Tilt Neon', cursive;
+
+//toc 
+$toc-font-size: 14px;
+$toc-active-border: $salmon;
+
+/*-- scss:rules --*/
+
+.title {
+  margin-top: 2em !important;
+  margin-bottom: 1.5em;
+  font-size: 28px;
+  font-family: $font-family;
+  font-weight: 500;
+}
+
+body {
+  font-size: 14px;
+  font-family: $font-family;
+}
+
+.left {
+  text-align: left;
+  padding-left: 1em;
+}
+.right {
+  text-align: right;
+  padding-right: 1em;
+}
+
+
+/* Heading 1 */
+h1 {
+  font-size: 24px;
+  font-family: $font-family;
+  font-variant: normal; 
+  font-weight: 500; 
+}
+
+/* Heading 2 */
+h2 {
+  font-size: 21px;
+  font-family: $font-family;
+  font-variant: normal; 
+  font-weight: 500; 
+}
+
+/* Heading 3 */
+h3 {
+  font-size: 18px;
+  font-family: $font-family;
+  font-variant: normal; 
+  font-weight: 500; 
+}
+
+.callout.callout-style-default .callout-body {
+  font-size: 0.75rem;
+}
