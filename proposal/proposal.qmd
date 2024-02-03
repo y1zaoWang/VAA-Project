@@ -1,0 +1,36 @@
+---
+title: "VAST Mini-Challenge 3: Proposal"
+title-block-banner: true
+toc: true
+---
+
+<font size = "6"> **Weather** </font>
+
+# {{< fa fish-fins >}} Project Overview
+
+Weather
+
+# {{< fa fish-fins >}} Project Objectives
+
+This study aims to address the following tasks in sequence:
+
+# {{< fa fish-fins >}} Proposed Methodology
+
+```{mermaid}
+%%| fig-width: 8
+flowchart LR
+  A{Task 1:\nIdentify\nAnomalies} -->|patterns?|B[products or\nservices]
+  A -->|suspicious?|C[revenue]
+  A -->|abnormal?|D[links]
+  A -.- E{Task 2:\nGrouping} -.- I{Tasks 3&4}
+  E -->|overlaps?|F(Company Contacts)
+  E -->|overlaps?|G(Beneficial Owners)
+  E -->|similarities?|H(Country)
+  E -->|similarities?|C
+  E -->|similarities?|B
+  I --> J([Evaluative Metrics])
+```
+
+# {{< fa fish-fins >}} Shiny App
+
+The proposed Shiny App will be an interactive Network Graph visualising different groups of

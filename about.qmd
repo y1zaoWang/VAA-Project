@@ -8,10 +8,4 @@ format:
 
 About The Team
 
-```{mermaid}
-flowchart TD
-A{Finding\nNEMO}--- B[Network-Enabled Maritime Observations]
-B --> C(Hailey)
-B --> D(Leonard)
-B --> E(Shaun)
-```
+Members: Wang Yizao, Li Zhongchao
