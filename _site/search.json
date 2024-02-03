@@ -11,6 +11,6 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "About The Team\n\n\n\n\nflowchart TD\nA{Finding\\nNEMO}--- B[Network-Enabled Maritime Observations]\nB --&gt; C(Hailey)\nB --&gt; D(Leonard)\nB --&gt; E(Shaun)"
   }
 ]
