@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "VAA-Project",
+    "title": "FindingNEMO",
     "section": "",
-    "text": "Group members: Wang Yizao, Li Zhongchao"
+    "text": "f u"
   },
   {
     "objectID": "about.html",
@@ -18,6 +18,6 @@
     "href": "proposal/proposal.html",
     "title": "VAST Mini-Challenge 3: Proposal",
     "section": "",
-    "text": "Weather \n\n Project Overview\nWeather\n\n\n Project Objectives\nThis study aims to address the following tasks in sequence:\n\n\n Proposed Methodology\n\n\n\n\nflowchart LR\n  A{Task 1:\\nIdentify\\nAnomalies} --&gt;|patterns?|B[products or\\nservices]\n  A --&gt;|suspicious?|C[revenue]\n  A --&gt;|abnormal?|D[links]\n  A -.- E{Task 2:\\nGrouping} -.- I{Tasks 3&4}\n  E --&gt;|overlaps?|F(Company Contacts)\n  E --&gt;|overlaps?|G(Beneficial Owners)\n  E --&gt;|similarities?|H(Country)\n  E --&gt;|similarities?|C\n  E --&gt;|similarities?|B\n  I --&gt; J([Evaluative Metrics])\n\n\n\n\n\n\n\n Shiny App\nThe proposed Shiny App will be an interactive Network Graph visualising different groups of"
+    "text": "Weather \n\n Project Overview\nWeather\n\n\n Project Objectives\nThis study aims to address the following tasks in sequence:\n\n\n Proposed Methodology\n\n\n\n\n\nflowchart LR\n  A{Task 1:\\nIdentify\\nAnomalies} --&gt;|patterns?|B[products or\\nservices]\n  A --&gt;|suspicious?|C[revenue]\n  A --&gt;|abnormal?|D[links]\n  A -.- E{Task 2:\\nGrouping} -.- I{Tasks 3&4}\n  E --&gt;|overlaps?|F(Company Contacts)\n  E --&gt;|overlaps?|G(Beneficial Owners)\n  E --&gt;|similarities?|H(Country)\n  E --&gt;|similarities?|C\n  E --&gt;|similarities?|B\n  I --&gt; J([Evaluative Metrics])\n\n\n\n\n\n\n\n\n Shiny App\nThe proposed Shiny App will be an interactive Network Graph visualising different groups of"
   }
 ]
