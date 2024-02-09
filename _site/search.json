@@ -19,5 +19,33 @@
     "title": "VAST Mini-Challenge 3: Proposal",
     "section": "",
     "text": "Weather \n\n Project Overview\nWeather\n\n\n Project Objectives\nThis study aims to address the following tasks in sequence:\n\n\n Proposed Methodology\n\n\n\n\nflowchart LR\n  A{Task 1:\\nIdentify\\nAnomalies} --&gt;|patterns?|B[products or\\nservices]\n  A --&gt;|suspicious?|C[revenue]\n  A --&gt;|abnormal?|D[links]\n  A -.- E{Task 2:\\nGrouping} -.- I{Tasks 3&4}\n  E --&gt;|overlaps?|F(Company Contacts)\n  E --&gt;|overlaps?|G(Beneficial Owners)\n  E --&gt;|similarities?|H(Country)\n  E --&gt;|similarities?|C\n  E --&gt;|similarities?|B\n  I --&gt; J([Evaluative Metrics])\n\n\n\n\n\n\n\n Shiny App\nThe proposed Shiny App will be an interactive Network Graph visualising different groups of"
+  },
+  {
+    "objectID": "Project Proposal.html",
+    "href": "Project Proposal.html",
+    "title": "Team 17 Project Proposal",
+    "section": "",
+    "text": "In general, we have Several commercial software packages in market to draw data and their summaries. However,ideally, such tools should be open source, freely available and allow contributions or modifications by users. Inspired by Prof Kam, with the acquired coding skills and understanding of data ,this group project aims to create such flexible website by making use of interactive visualizations to answer questions from Visual Analytics Project to find out the Impact Of Climate Change In Singapore."
+  },
+  {
+    "objectID": "Project Proposal.html#question-1",
+    "href": "Project Proposal.html#question-1",
+    "title": "Team 17 Project Proposal",
+    "section": "Question 1",
+    "text": "Question 1\n\nPOWER\nPower generation is one of the major sources of Singapore's carbon emissions and accounts for about 40% of our emissions today. With our limited capacity to tap on alternative energy sources, we currently rely heavily on imported natural gas to power our nation.\nThey will be evaluated based on:\n\nNatural Gas;\n\nSince 2000, Singapore has shifted away from less efficient fossil fuels and in turn increased the percentage of natural gas used in electricity generation from 19% to more than 95% today."
+  },
+  {
+    "objectID": "Project Proposal.html#question-2",
+    "href": "Project Proposal.html#question-2",
+    "title": "Team 17 Project Proposal",
+    "section": "Question 2",
+    "text": "Question 2\n\nHOUSEHOLDS\nSingapore has taken steps to reduce energy consumption of the household sector, which accounts for about 15% of our total electricity consumption. The Minimum Energy Performance Standards which have been progressively tightened over the years, improves the energy efficiency of household appliances such as refrigerators, air-conditioners, clothes dryers and lamps.\nThey will be evaluated based on:\n\nenergy-saving habits\n\nHouseholds can also reduce their energy consumption use by practising simple energy-saving habits."
+  },
+  {
+    "objectID": "Project Proposal.html#question-3",
+    "href": "Project Proposal.html#question-3",
+    "title": "Team 17 Project Proposal",
+    "section": "Question 3",
+    "text": "Question 3\n\nCARBON TAX\nSingapore's carbon tax underpins our net zero targets and climate mitigation efforts by providing an effective economic signal to steer producers and consumers away from carbon-intensive goods and services, hold businesses accountable for their emissions, and enhance the business case for the development of low-carbon solutions. In all, the carbon tax currently covers 80% of our total greenhouse gas (GHG) emissions from about 50 facilities in the manufacturing, power, waste, and water sectors. The carbon tax forms part of Singapore's comprehensive suite of mitigation measures to support the transition to a low-carbon economy.\nThey will be evaluated based on:\n\nCarbon Tax in Singapore from 2019 to 2023\n\nSingapore implemented a carbon tax, the first carbon pricing scheme in Southeast Asia, on 1 January 2019. The carbon tax level was set at S$5/tCO2e for the first five years from 2019 to 2023 to provide a transitional period for emitters to adjust."
   }
 ]
