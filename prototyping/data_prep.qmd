@@ -1,0 +1,32 @@
+---
+title: "Prototyping"
+---
+
+```{r}
+pacman::p_load(sf,terra,gstat,tmap,viridis,tidyverse,dplyr)
+```
+
+import data:
+
+import the merged data of all the stations across 10 years (2014-2023)
+
+```{r}
+rfdata <- read.csv('data/merged_data.csv')
+```
+
+Import the data that includes the latitude and longitude of the weather stations in Singapore.
+
+```{r}
+rfstation <- read.csv('data/RainfallStation.csv')
+
+rfstation <- rfstation %>%
+  rename(Station = Station.Code)
+
+```
+
+Join the latitude and longitude to the rfdata, so that in the analysis part we can map the geospatial analysis.
+
+```{r}
+rfdata<- rfdata  %>%
+  left_join(rfstation, by = "Station")
+```
