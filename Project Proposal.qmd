@@ -10,7 +10,7 @@ In general, we have Several commercial software packages in market to draw data 
 
 Following are the questions we aim to answer, referencing from **Singapore climate targets:**
 
-Challenge 2: Singapore's Long-Term Low Emissions Development follows Addendum to the LEDS captures Singapore\'s raised national climate target to achieve net zero emissions by 2050. It builds on the LEDS submitted in 2020, which laid out a target of halving our emissions from their peak to 33 MtCO~2~e by 2050.
+Challenge 2: Singapore's Long-Term Low Emissions Development follows Addendum to the LEDS captures Singapore's raised national climate target to achieve net zero emissions by 2050. It builds on the LEDS submitted in 2020, which laid out a target of halving our emissions from their peak to 33 MtCO~2~e by 2050.
 
 *Consider the Singapore is accelerating the low-carbon transition for industry, economy and society through four key thrusts, and use visual analytic techniques to address these questions.*
 
@@ -28,7 +28,7 @@ Challenge 2: Singapore's Long-Term Low Emissions Development follows Addendum to
 
 ### POWER
 
-Power generation is one of the major sources of Singapore\'s carbon emissions and accounts for about 40% of [our emissions today](https://www.nccs.gov.sg/singapores-climate-action/singapores-climate-targets/singapore-emissions-profile/). With our limited capacity to tap on [alternative energy sources](https://www.nccs.gov.sg/singapores-climate-action/singapore-approach-to-alternative-energy/), we currently rely heavily on imported natural gas to power our nation.
+Power generation is one of the major sources of Singapore's carbon emissions and accounts for about 40% of [our emissions today](https://www.nccs.gov.sg/singapores-climate-action/singapores-climate-targets/singapore-emissions-profile/). With our limited capacity to tap on [alternative energy sources](https://www.nccs.gov.sg/singapores-climate-action/singapore-approach-to-alternative-energy/), we currently rely heavily on imported natural gas to power our nation.
 
 They will be evaluated based on:
 
@@ -36,7 +36,7 @@ They will be evaluated based on:
 
 Since 2000, Singapore has shifted away from less efficient fossil fuels and in turn increased the percentage of natural gas used in electricity generation from 19% to more than 95% today.
 
-![](images/ema_singapore's grid emission factor.png)
+![](images/ema_singapore's%20grid%20emission%20factor.png)
 
 ## **Question 2**
 
@@ -54,7 +54,7 @@ Households can also reduce their energy consumption use by practising simple [e
 
 ### CARBON TAX
 
-Singapore\'s carbon tax underpins our net zero targets and climate mitigation efforts by providing an effective economic signal to steer producers and consumers away from carbon-intensive goods and services, hold businesses accountable for their emissions, and enhance the business case for the development of low-carbon solutions. In all, the carbon tax currently covers 80% of our total greenhouse gas (GHG) emissions from about 50 facilities in the manufacturing, power, waste, and water sectors. The carbon tax forms part of Singapore\'s comprehensive suite of mitigation measures to support the transition to a low-carbon economy.
+Singapore's carbon tax underpins our net zero targets and climate mitigation efforts by providing an effective economic signal to steer producers and consumers away from carbon-intensive goods and services, hold businesses accountable for their emissions, and enhance the business case for the development of low-carbon solutions. In all, the carbon tax currently covers 80% of our total greenhouse gas (GHG) emissions from about 50 facilities in the manufacturing, power, waste, and water sectors. The carbon tax forms part of Singapore's comprehensive suite of mitigation measures to support the transition to a low-carbon economy.
 
 They will be evaluated based on:
 

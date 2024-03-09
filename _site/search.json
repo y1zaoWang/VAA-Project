@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "VAA-Project",
+    "title": "FindingNEMO",
     "section": "",
-    "text": "Group members: Wang Yizao, Li Zhongchao"
+    "text": "f u"
   },
   {
     "objectID": "about.html",
@@ -18,6 +18,7 @@
     "href": "proposal/proposal.html",
     "title": "VAST Mini-Challenge 3: Proposal",
     "section": "",
+<<<<<<< HEAD
     "text": "Weather \n\n Project Overview\nWeather\n\n\n Project Objectives\nThis study aims to address the following tasks in sequence:\n\n\n Proposed Methodology\n\n\n\n\nflowchart LR\n  A{Task 1:\\nIdentify\\nAnomalies} --&gt;|patterns?|B[products or\\nservices]\n  A --&gt;|suspicious?|C[revenue]\n  A --&gt;|abnormal?|D[links]\n  A -.- E{Task 2:\\nGrouping} -.- I{Tasks 3&4}\n  E --&gt;|overlaps?|F(Company Contacts)\n  E --&gt;|overlaps?|G(Beneficial Owners)\n  E --&gt;|similarities?|H(Country)\n  E --&gt;|similarities?|C\n  E --&gt;|similarities?|B\n  I --&gt; J([Evaluative Metrics])\n\n\n\n\n\n\n\n Shiny App\nThe proposed Shiny App will be an interactive Network Graph visualising different groups of"
   },
   {
@@ -47,5 +48,8 @@
     "title": "Team 17 Project Proposal",
     "section": "Question 3",
     "text": "Question 3\n\nCARBON TAX\nSingapore's carbon tax underpins our net zero targets and climate mitigation efforts by providing an effective economic signal to steer producers and consumers away from carbon-intensive goods and services, hold businesses accountable for their emissions, and enhance the business case for the development of low-carbon solutions. In all, the carbon tax currently covers 80% of our total greenhouse gas (GHG) emissions from about 50 facilities in the manufacturing, power, waste, and water sectors. The carbon tax forms part of Singapore's comprehensive suite of mitigation measures to support the transition to a low-carbon economy.\nThey will be evaluated based on:\n\nCarbon Tax in Singapore from 2019 to 2023\n\nSingapore implemented a carbon tax, the first carbon pricing scheme in Southeast Asia, on 1 January 2019. The carbon tax level was set at S$5/tCO2e for the first five years from 2019 to 2023 to provide a transitional period for emitters to adjust."
+=======
+    "text": "Weather \n\n Project Overview\nWeather\n\n\n Project Objectives\nThis study aims to address the following tasks in sequence:\n\n\n Proposed Methodology\n\n\n\n\n\nflowchart LR\n  A{Task 1:\\nIdentify\\nAnomalies} --&gt;|patterns?|B[products or\\nservices]\n  A --&gt;|suspicious?|C[revenue]\n  A --&gt;|abnormal?|D[links]\n  A -.- E{Task 2:\\nGrouping} -.- I{Tasks 3&4}\n  E --&gt;|overlaps?|F(Company Contacts)\n  E --&gt;|overlaps?|G(Beneficial Owners)\n  E --&gt;|similarities?|H(Country)\n  E --&gt;|similarities?|C\n  E --&gt;|similarities?|B\n  I --&gt; J([Evaluative Metrics])\n\n\n\n\n\n\n\n\n Shiny App\nThe proposed Shiny App will be an interactive Network Graph visualising different groups of"
+>>>>>>> 08341a9d558ae7bf4a60be2880cd087a4c807927
   }
 ]

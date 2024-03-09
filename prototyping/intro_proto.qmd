@@ -1,0 +1,46 @@
+---
+title: "Prototype Introduction"
+date: "Mar 5,2024"
+date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+  message: false
+editor: visual
+---
+
+# **1  Overview**
+
+For this Take Home Exercise, there are several task needs to be done to create the Shiny application.
+
+-   To evaluate and determine the necessary R packages needed for your Shiny application are supported in R CRAN,
+
+-   To prepare and test the specific R codes can be run and returned the correct output as expected,
+
+-   To determine the parameters and outputs that will be exposed on the Shiny applications, and
+
+-   To select the appropriate Shiny UI components for exposing the parameters determine above.
+
+This submission includes the prototype report for the group project, which will includes:
+
+-   the data preparation process,
+
+-   the selection of data visualisation techniques used,
+
+-   and the data visualisation design and interactivity principles and best practices implemented.
+
+# **2  Project Infomation**
+
+The purpose of this project is to create a Shiny app with user-friendly interface and functions, and also create a website for user to discover the historical Weather changes in Singapore.
+
+The Prototype R Shiny app:
+
+-   Homepage: An introduction page to give an overview on the data set and also visuals for user to interact with.
+
+-   Exploratory Data Analysis: In this tab user can explore the basic distribution of the data set based on the input they set.
+
+-   Time series analysis: The data is in time series by years, user can select the years that they want to explore
+
+-   Clustering time series analysis: Users can explore grouping stations with similar weather patterns or grouping time periods with similar patterns. The user would then be able to choose different models to forecast the grouped data.

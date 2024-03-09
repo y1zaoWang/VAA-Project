@@ -15,6 +15,16 @@ website:
         href: about.html
       - text: "Proposal"
         href: proposal/proposal.html
+      - text: "Prototyping"
+        menu:
+          - text: "Introduction"
+            href: prototyping/intro_proto.html
+          - text: "Data Preparation"
+            href: prototyping/data_prep.html
+          - text: "Exploratory Data Analysis"
+            href: prototyping/eda.html
+          - text: "Clustering Analysis"
+            href: prototyping/clustering.html
       - text: "Shiny App"
         menu:
           - text: "User Guide"
