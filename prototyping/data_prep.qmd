@@ -5,7 +5,7 @@ title: "Prototyping"
 ```{r}
 pacman::p_load(tidyverse, naniar, imputeTS, DT, knitr, lubridate,
                ggplot2, patchwork, ggthemes,
-               tseries, ggHoriPlot,
+               tseries, ggHoriPlot,dplyr,
                TSclust, fable, dtwclust, dendextend,
                ggraph, plotly, factoextra, ggdendrosf,terra,gstat,tmap,viridis,tidyverse,dplyr)
 ```
@@ -39,13 +39,13 @@ his dataset was retrieved from the [Meteorological Service Singapore](http://www
 
 -   Combine all downloaded CSV files into one dataframe.
 
--   Performing cleaning to merge data of columns with slightly different names due to case sensitivity (e.g., \"min\" vs. \"Min\")
+-   Performing cleaning to merge data of columns with slightly different names due to case sensitivity (e.g., "min" vs. "Min")
 
--   (\'Highest 30 **Min** Rainfall (mm)\', \'Highest 30 **min** Rainfall (mm)\')
+-   ('Highest 30 **Min** Rainfall (mm)', 'Highest 30 **min** Rainfall (mm)')
 
--   (\'Highest 60 **Min** Rainfall (mm)\', \'Highest 60 **min** Rainfall (mm)\')
+-   ('Highest 60 **Min** Rainfall (mm)', 'Highest 60 **min** Rainfall (mm)')
 
--   (\'Highest 120 **Min** Rainfall (mm)\', \'Highest 120 **min** Rainfall (mm)\')
+-   ('Highest 120 **Min** Rainfall (mm)', 'Highest 120 **min** Rainfall (mm)')
 
 -   Add the latitude and longitude of each station to the dataframe.
 
@@ -208,138 +208,16 @@ kable(unique(raw_weather_data$Station),
       caption = "List of Remaining Stations")
 ```
 
-#### **Identify and remove Stations with excessive missing values**
-
-If there are any missing values, we can try to impute these missing values. However, if there are 7 or more consecutive values missing, we will remove these stations first.
-
-```{r}
-# Define a helper function to count the number of 7 or more consecutive NAs
-count_seven_consecutive_NAs <- function(x) {
-  na_runs <- rle(is.na(x))
-  total_consecutive_NAs <- sum(na_runs$lengths[na_runs$values & na_runs$lengths >= 7])
-  return(total_consecutive_NAs)
-}
-
-# Apply the helper function to each relevant column within grouped data
-weather_summary <- raw_weather_data %>%
-  group_by(Station, Year, Month) %>%
-  summarise(across(-Day, ~ count_seven_consecutive_NAs(.x), .names = "count_consec_NAs_{.col}"), .groups = "drop")
-
-# Filter to keep only rows where there is at least one column with 7 or more consecutive missing values
-weather_summary_with_consecutive_NAs <- weather_summary %>%
-  filter(if_any(starts_with("count_consec_NAs_"), ~ . > 0))
-
-# View the result
-print(sprintf("There are %d stations with 7 or more consecutive missing values.", n_distinct(weather_summary_with_consecutive_NAs$Station)))
-```
-
-```{r}
-# kable(weather_summary_with_consecutive_NAs)
-datatable(weather_summary_with_consecutive_NAs, 
-            class= "compact",
-            rownames = FALSE,
-            width="100%", 
-            options = list(pageLength = 10, scrollX=T),
-          caption = 'Details of stations with >=7 missing values')
-```
-
-We hence drop these stations from our dataset:
-
-```{r}
-raw_weather_data <- anti_join(raw_weather_data, weather_summary_with_consecutive_NAs, by = "Station")
-
-print(sprintf("The folowing %d stations were dropped: %s", n_distinct(weather_summary_with_consecutive_NAs$Station), paste(unique(weather_summary_with_consecutive_NAs$Station), collapse = ", ")))
-```
-
-```{r}
-print(sprintf("There are %d stations left: ", n_distinct(raw_weather_data$Station)))
-```
-
-```{r}
-kable(unique(raw_weather_data$Station),
-      row.names = TRUE,
-      col.names = "Station",
-      caption = "List of Remaining Stations")
-```
-
-### Second check for missing values
-
-From the check below we see there are still missing values in our data. We will impute these values in the next step.
-
-```{r}
-vis_miss(raw_weather_data)
-```
-
-### Impute missing values
-
-To handle the missing values for the remaining Stations, we will impute missing values using simple moving average from **imputeTS** package.
-
-#### **Create Date column**
-
-```{r}
-raw_weather_data <- raw_weather_data %>%
-  mutate(Date = as.Date(paste(Year, Month, Day, sep = "-"))) %>%
-  relocate(Date, .after = 1)
-```
-
-#### **Using `imputeTS` package**
-
-```{r}
-# Define the weather variables to loop through
-weather_variables <- c("Daily.Rainfall.Total..mm.", "Mean.Temperature...C.", "Maximum.Temperature...C.", "Minimum.Temperature...C.")
-
-# Ensure raw_weather_data is correctly copied to a new data frame for imputation
-weather_data_imputed <- raw_weather_data
-
-# Loop through each weather variable to impute missing values
-for(variable in weather_variables) {
-  # Convert variable to numeric, ensuring that the conversion warnings are handled if necessary
-  weather_data_imputed[[variable]] <- as.numeric(as.character(weather_data_imputed[[variable]]))
-  
-  # Impute missing values using a moving average
-  weather_data_imputed <- weather_data_imputed %>%
-    group_by(Station) %>%
-    arrange(Station, Date) %>%
-    mutate("{variable}" := round(na_ma(.data[[variable]], k = 7, weighting = "simple"), 1)) %>%
-    ungroup()
-}
-```
-
-### Final visual check for missing values
-
-```{r}
-vis_miss(weather_data_imputed)
-```
-
-### Add specific columns to data \[NEW\]
-
-These columns are added as they may be used in plots later.
-
-```{r}
-weather_data_imputed <- weather_data_imputed %>% 
-  mutate(Date_mine = make_date(2023, month(Date), day(Date)),
-         Month_Name = factor(months(Date), levels = month.name),
-         Week = isoweek(Date),
-         Weekday = wday(Date)
-  )
-```
-
 ## Summary of cleaned data
 
 ### Details of stations and time period of data
 
 ```{r}
-time_period_start <- min(weather_data_imputed$Date)
-time_period_end <- max(weather_data_imputed$Date)
-cat("\nThe time period of the dataset is from", format(time_period_start, "%Y-%m-%d"),"to", format(time_period_end, "%Y-%m-%d"), "\n")
+print(sprintf("There are %d stations: ", n_distinct(raw_weather_data$Station)))
 ```
 
 ```{r}
-print(sprintf("There are %d stations: ", n_distinct(weather_data_imputed$Station)))
-```
-
-```{r}
-kable(unique(weather_data_imputed$Station),
+kable(unique(raw_weather_data$Station),
       row.names = TRUE,
       col.names = "Station",
       caption = "List of Stations")
@@ -348,24 +226,27 @@ kable(unique(weather_data_imputed$Station),
 ### Check structure with `glimpse()`
 
 ```{r}
-glimpse(weather_data_imputed)
+glimpse(raw_weather_data)
 ```
 
 ### View dataset as interactive table
 
 ```{r}
-datatable(weather_data_imputed, 
-            class= "compact",
-            rownames = FALSE,
-            width="100%", 
-            options = list(pageLength = 10, scrollX=T),
-          caption = 'Cleaned and imputed weather dataset')
+raw_weather_data <- raw_weather_data %>%
+  mutate(`Daily.Rainfall.Total..mm.` = as.numeric(gsub(",", "", `Daily.Rainfall.Total..mm.`)))
+```
+
+```{r}
+raw_weather_data <- raw_weather_data %>%
+  group_by(Station, Latitude, Longitude) %>%  # grouping by Station, Year, and Month if you want monthly sums
+  summarise(MONTHSUM = sum(Daily.Rainfall.Total..mm., na.rm = TRUE)) %>%
+  ungroup()
 ```
 
 ## Save cleaned data to .rds
 
 ```{r}
-write_rds(weather_data_imputed, "data/weather_imputed_11stations.rds")
+write_rds(raw_weather_data, "data/raw_weather_data.rds")
 ```
 
 ## Import cleaned data
@@ -373,6 +254,6 @@ write_rds(weather_data_imputed, "data/weather_imputed_11stations.rds")
 The below code can be used to import the cleaned data.
 
 ```{r}
-weather_data <- read_rds("data/weather_imputed_11stations.rds") 
+weather_data <- read_rds("data/raw_weather_data.rds") 
 # weather_data <- read_rds("data/weather_imputed.rds") 
 ```
