@@ -232,12 +232,12 @@ glimpse(raw_weather_data)
 ### View dataset as interactive table
 
 ```{r}
-raw_weather_data <- raw_weather_data %>%
+monsumdata <- raw_weather_data %>%
   mutate(`Daily.Rainfall.Total..mm.` = as.numeric(gsub(",", "", `Daily.Rainfall.Total..mm.`)))
 ```
 
 ```{r}
-raw_weather_data <- raw_weather_data %>%
+monsumdata <- monsumdata %>%
   group_by(Station, Latitude, Longitude) %>%  # grouping by Station, Year, and Month if you want monthly sums
   summarise(MONTHSUM = sum(Daily.Rainfall.Total..mm., na.rm = TRUE)) %>%
   ungroup()
@@ -246,7 +246,7 @@ raw_weather_data <- raw_weather_data %>%
 ## Save cleaned data to .rds
 
 ```{r}
-write_rds(raw_weather_data, "data/raw_weather_data.rds")
+write_rds(monsumdata, "data/monsumdata.rds")
 ```
 
 ## Import cleaned data
@@ -254,6 +254,6 @@ write_rds(raw_weather_data, "data/raw_weather_data.rds")
 The below code can be used to import the cleaned data.
 
 ```{r}
-weather_data <- read_rds("data/raw_weather_data.rds") 
-# weather_data <- read_rds("data/weather_imputed.rds") 
+weather_data <- read_rds("data/monsumdata.rds") 
+# weather_data <- read_rds("data/monsumdata.rds") 
 ```

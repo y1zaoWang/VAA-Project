@@ -267,7 +267,7 @@ logical.return = TRUE, : there is no package called 'ggdendrosf'</code></pre>
 <pre><code>package 'tmap' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-    C:\Users\Yizao\AppData\Local\Temp\RtmpMNWlOQ\downloaded_packages</code></pre>
+    C:\Users\Yizao\AppData\Local\Temp\Rtmp8yCXLn\downloaded_packages</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -734,11 +734,11 @@ $ Longitude                 &lt;dbl&gt; 103.9007, 103.9007, 103.9007, 103.9007, 
 <section id="view-dataset-as-interactive-table" class="level3">
 <h3 class="anchored" data-anchor-id="view-dataset-as-interactive-table">View dataset as interactive table</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>raw_weather_data <span class="ot">&lt;-</span> raw_weather_data <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>monsumdata <span class="ot">&lt;-</span> raw_weather_data <span class="sc">%&gt;%</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Daily.Rainfall.Total..mm.</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">","</span>, <span class="st">""</span>, <span class="st">`</span><span class="at">Daily.Rainfall.Total..mm.</span><span class="st">`</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>raw_weather_data <span class="ot">&lt;-</span> raw_weather_data <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>monsumdata <span class="ot">&lt;-</span> monsumdata <span class="sc">%&gt;%</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Station, Latitude, Longitude) <span class="sc">%&gt;%</span>  <span class="co"># grouping by Station, Year, and Month if you want monthly sums</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MONTHSUM =</span> <span class="fu">sum</span>(Daily.Rainfall.Total..mm., <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -752,15 +752,15 @@ using the `.groups` argument.</code></pre>
 <section id="save-cleaned-data-to-.rds" class="level2">
 <h2 class="anchored" data-anchor-id="save-cleaned-data-to-.rds">Save cleaned data to .rds</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(raw_weather_data, <span class="st">"data/raw_weather_data.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(monsumdata, <span class="st">"data/monsumdata.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="import-cleaned-data" class="level2">
 <h2 class="anchored" data-anchor-id="import-cleaned-data">Import cleaned data</h2>
 <p>The below code can be used to import the cleaned data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>weather_data <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"data/raw_weather_data.rds"</span>) </span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># weather_data &lt;- read_rds("data/weather_imputed.rds") </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>weather_data <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"data/monsumdata.rds"</span>) </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># weather_data &lt;- read_rds("data/monsumdata.rds") </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
