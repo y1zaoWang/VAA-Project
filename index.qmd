@@ -5,5 +5,3 @@ format:
   html:
     css: landing.css
 ---
-
-f u

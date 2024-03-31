@@ -18,6 +18,14 @@ We would first start with setting up the environment and installation of the pac
 rm(list=ls())
 ```
 
+```{r}
+pacman::p_load(tidyverse, naniar, imputeTS, DT, knitr, lubridate,
+               ggplot2, patchwork, ggthemes,
+               tseries, ggHoriPlot,dplyr,
+               TSclust, fable, dtwclust, dendextend,
+               ggraph, plotly, factoextra, ggdendrosf,terra,gstat,tmap,viridis,tidyverse,dplyr)
+```
+
 Next, we would run the following code chunk to validate if the required packages are installed. In the event that the packages are not installed, the code will install the missing packages. Afterwhich, the code would read the required package library onto the current environment.
 
 ```{r}
@@ -36,6 +44,8 @@ pacman::p_load(
   zoo         # For working with regular and irregular time series data
 )
 
+library(DT)
+
 ```
 
 # Import dataset
@@ -43,8 +53,6 @@ pacman::p_load(
 ```{r}
 weather = read_rds("data/weather_imputed_11stations.rds")
 monsum = read_rds("data/monsumdata.rds")
-paged_table(weather)
-paged_table(monsum)
 ```
 
 ## **feasts**
@@ -83,6 +91,28 @@ ggplot(monthly_rainfall, aes(x = Day, y = Total_Rainfall, color = Station)) +
 ### **Seasonal plot and seasonal subseries plot**
 
 With the *feasts* package, user is able to plot time plot based on the given time period in the dataset. We are also able to use the *gg_season()* and *gg_subseries()* to plot the season plot and there change in the seasonality respectively. Without the use of *group_by()* function, we are able to review the time plot of individual airport using *gg_season()* and *gg_subseries()* function. The code below would shown how we are able to use *gg_season()* to plot the different season plot based on individual airport. Similar technique is used for *gg_subseries* as well.
+
+weather_tsibble \<- weather_filtered %\>%
+
+mutate(Year = year(Date), Month = month(Date)) %\>%
+
+group_by(Station, Year, Month) %\>%
+
+summarise(Total_Rainfall = sum(Daily.Rainfall.Total..mm., na.rm = TRUE)) %\>%
+
+ungroup() %\>%
+
+mutate(Date = make_date(Year, Month)) %\>%
+
+select(-Year, -Month) %\>%
+
+as_tsibble(index = Date, key = Station)
+
+\# Seasonal decomposition using the feasts package
+
+weather_decomposed \<- weather_tsibble %\>%
+
+model(STL(Total_Rainfall \~ season(window = "periodic")))
 
 ```{r}
 weather_tsibble <- weather_filtered %>%
