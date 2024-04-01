@@ -3,4 +3,14 @@ title: "Fishy App User Guide"
 title-block-banner: true
 ---
 
-![](images/page0001.jpg) ![](images/page0002.jpg) ![](images/page0003.jpg) ![](images/page0004.jpg) ![](images/page0005.jpg) ![](images/page0006.jpg)
+![](images/page0001.png) ![](images/page0002.png)
+
+![](images/page0003.png)
+
+![](images/page0004.png)
+
+![](images/page0006.png)
+
+![](images/page0007.png)
+
+![](images/page0008.png)
