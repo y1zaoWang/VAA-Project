@@ -25,6 +25,8 @@ website:
             href: prototyping/eda.html
           - text: "Clustering Analysis"
             href: prototyping/clustering.html
+          - text: "Whole Project"
+            href: prototyping/Project.html
       - text: "Shiny App"
         menu:
           - text: "User Guide"
@@ -32,7 +34,7 @@ website:
           - text: "Shiny App"
             href: shinyapp/shinyapp2.html
       - text: "Project Overview"
-        href: poster/poster.html
+        href: poster/poster.png
 format:
   html:
     grid:

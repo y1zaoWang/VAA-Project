@@ -1,5 +1,5 @@
 ---
-title: "Take-home exercise 4 Visual Analytics"
+title: "EDA"
 date: "Mar 8,2024"
 date-modified: "last-modified"
 execute: 

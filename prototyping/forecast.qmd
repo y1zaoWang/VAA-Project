@@ -216,3 +216,6 @@ p_time_series <- ggplot() +
 # Print the time series plot
 print(p_time_series)
 ```
+
+```{}
+```

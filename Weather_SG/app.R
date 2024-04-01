@@ -8,6 +8,8 @@ rf_data_month <- read.csv('data/rf_data_month.csv')
 temp_month <- read.csv('data/temp_month.csv')
 temp_year1 <- read.csv('data/temp_year1.csv')
 weather <- read.csv("data/weather_imputed_11stations.csv")
+weather_rf_test <- read.csv("data/weather_rf_test.csv")
+weather_rf_train <- read.csv("data/weather_rf_train.csv")
 
 # Combining datasets by 'Year' and 'Month'
 combined_data_month <- merge(temp_month, rf_data_month, by = c("Year", "Month"), all = TRUE)
@@ -40,7 +42,6 @@ ui <- dashboardPage(
       menuItem("CDA", tabName = "cda", icon = icon("project-diagram")),
       menuItem("Correlation", tabName = "correlation", icon = icon("chart-area")),
       menuItem("Cluster", tabName = "cluster", icon = icon("braille")),
-      menuItem("Cluster Analysis", tabName = "cluster_analysis", icon = icon("calendar-alt")),
       menuItem("Weather Forecast", tabName = "forecast", icon = icon("cloud-sun-rain"))
     )
   ),
@@ -188,12 +189,23 @@ ui <- dashboardPage(
                     tabsetPanel(
                       tabPanel("Actual vs Predicted", plotOutput("plotActualVsPredicted")),
                       tabPanel("Residuals", plotOutput("plotResiduals")),
-                      tabPanel("Variable Importance", plotOutput("plotImportance")),
-                      tabPanel("Time Series", plotOutput("plotTimeSeries"))
+                      tabPanel("Variable Importance", plotOutput("plotImportance"))
                     )
                   )
                 )
-              )
+              ),
+                tabItem(tabName = "time_series",
+                        fluidPage(
+                          titlePanel("Time Series Forecast"),
+                          sidebarLayout(
+                            sidebarPanel(
+                              # Include any inputs that affect the time series plot
+                            ),
+                            mainPanel(
+                              plotOutput("timeSeriesPlot") # This is the UI output for the time series plot
+                            )
+                          )
+                        )),
       )
     )
   )
@@ -344,13 +356,30 @@ server <- function(input, output) {
       theme_minimal()
   })
   
-  output$seasonalPlot <- renderPlot({
-    
-    # Ensure the 'weather' dataset is filtered according to the input$selectedStations
+  output$monthlyRainfallPlot <- renderPlot({
+    # Filter the weather data for the selected stations
     weather_filtered <- weather %>%
       filter(Station %in% input$selectedStations)
     
-    # Time series analysis and plot generation code
+    # Create a date column from Year and Month
+    weather_filtered$Date <- make_date(weather_filtered$Year, weather_filtered$Month)
+    
+    # Summarize the total rainfall by month for each station
+    monthly_rainfall <- weather_filtered %>%
+      group_by(Station, Date) %>%
+      summarise(Total_Rainfall = sum(Daily.Rainfall.Total..mm., na.rm = TRUE))
+    
+    # Plot the data
+    ggplot(monthly_rainfall, aes(x = Date, y = Total_Rainfall, color = Station)) +
+      geom_line() +
+      labs(title = "Monthly Rainfall by Station", x = "Date", y = "Total Rainfall (mm)") +
+      theme_minimal()
+  })
+  
+  output$seasonalPlotOutput <- renderPlot({
+    weather_filtered <- weather %>%
+      filter(Station %in% input$selectedStations)
+    
     weather_tsibble <- weather_filtered %>%
       mutate(Year = year(Date), Month = month(Date)) %>%
       group_by(Station, Year, Month) %>%
@@ -360,84 +389,104 @@ server <- function(input, output) {
       select(-Year, -Month) %>%
       as_tsibble(index = Date, key = Station)
     
-    # Seasonal decomposition using the feasts package
-    weather_decomposed <- weather_tsibble %>%
-      model(STL(Total_Rainfall ~ season(window = "periodic")))
+    # Fill gaps and replace NAs with 0
+    weather_tsibble <- weather_tsibble %>%
+      fill_gaps() %>%
+      mutate(Total_Rainfall = replace_na(Total_Rainfall, 0))
     
-    # Create the seasonal plots
+    # Create seasonal plots
     seasonal_plots <- weather_tsibble %>%
       mutate(Week = factor(isoweek(Date))) %>%
-      as_tsibble(index = Date, key = Station) %>%
-      fill_gaps() %>%
-      mutate(Total_Rainfall = replace_na(Total_Rainfall, 0)) %>%
       gg_season(Total_Rainfall, period = "week") +
       labs(title = "Seasonal Plot by Week",
            subtitle = "Individual time plot for each Station",
-           y = "Total Rainfall") +
-      facet_wrap(~ Station, scales = "free_y", ncol = 1) +
+           y = "Total Rainfall (mm)") +
+      facet_wrap(~ Station, scales = "free_y") +
       aes(color = Week) +
       scale_color_manual(values = rainbow(length(unique(weather_tsibble$Week))))
     
-    # Print the seasonal plots
-    print(seasonal_plots)
+    seasonal_plots
   })
   # Plot for forecast
+  # Load required libraries
+  library(randomForest)
+  library(ggplot2)
+  library(dplyr)
+
+  # Define the reactive event for when the 'Run Model' button is pressed
   modelOutput <- eventReactive(input$runModel, {
-    # Split data into training and testing sets
-    # Run the Random Forest model
-    # Perform predictions and calculate performance metrics
-    # Create all plots
-    # Return a list containing the model, predictions, and plots
-    # Note: You should use your actual data and column names
-    
+    # Ensure the required variables and data are available within the reactive context
+    cut_off_year <- 2018
+    explanatory_vars <- c("Month", "Day", "Mean_Temperature", "Max_Temperature", "Min_Temperature")
+    dependent_var <- "Daily_Rainfall_Total_mm"
+    weather_data_imputed$Year <- as.numeric(format(as.Date(weather_data_imputed$Date, format="%Y-%m-%d"), "%Y"))
+
+    weather_rf_train <- subset(weather_data_imputed, Year < cut_off_year) %>%
+      select(all_of(explanatory_vars), dependent_var) %>%
+      na.omit()
+
+    weather_rf_test <- subset(weather_data_imputed, Year >= cut_off_year) %>%
+      select(all_of(explanatory_vars), dependent_var) %>%
+      na.omit()
+
     # Train the Random Forest model
-    rf_model <- randomForest(Daily_Rainfall_Total_mm ~ ., data = weather_rf_train, ntree = input$ntree, mtry = input$mtry, nodesize = input$nodesize, importance = TRUE, na.action = na.omit)
-    
-    # Predictions
+    rf_model <- randomForest(reformulate(explanatory_vars, dependent_var), data = weather_rf_train,
+                             ntree = input$ntree, mtry = input$mtry, nodesize = input$nodesize,
+                             importance = TRUE, na.action = na.omit)
+
+    # Generate predictions
     predictions_test <- predict(rf_model, newdata = weather_rf_test)
+    predictions_train <- predict(rf_model, newdata = weather_rf_train)
     
-    # Create the residual plot
-    residuals <- weather_rf_test$Daily_Rainfall_Total_mm - predictions_test
-    p_residuals <- ggplot() +
-      geom_point(aes(x = predictions_test, y = residuals)) +
-      geom_hline(yintercept = 0, linetype = "dashed") +
-      labs(x = "Predicted", y = "Residuals", title = "Residual Plot")
+    # Create a combined data frame for plotting
+    train_results <- data.frame(Actual = weather_rf_train[[dependent_var]], Predicted = predictions_train)
+    test_results <- data.frame(Actual = weather_rf_test[[dependent_var]], Predicted = predictions_test)
+    results <- rbind(
+      mutate(train_results, DataPartition = "Train"),
+      mutate(test_results, DataPartition = "Test")
+    )
+
+    # Calculate residuals
+    results$Residuals <- results$Actual - results$Predicted
     
-    # Create the variable importance plot
-    var_imp <- importance(rf_model)
-    p_importance <- ggplot() +
-      geom_bar(aes(x = row.names(var_imp), y = var_imp[,1]), stat = "identity") +
+    # Create plots
+    p_actual_vs_predicted <- ggplot(results, aes(x = Actual, y = Predicted, color = DataPartition)) +
+      geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") +
+      geom_point(alpha = 0.5) +
+      labs(title = "Actual vs. Predicted Values")
+
+    p_residuals <- ggplot(results, aes(x = Predicted, y = Residuals, color = DataPartition)) +
+      geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+      geom_point() +
+      labs(title = "Residual Plot")
+
+    importance_data <- as.data.frame(importance(rf_model))
+    p_importance <- ggplot(importance_data, aes(x = rownames(importance_data), y = IncNodePurity)) +
+      geom_bar(stat = "identity") +
       coord_flip() +
-      labs(x = "Variables", y = "Increase in Node Purity", title = "Variable Importance")
+      labs(title = "Variable Importance")
     
-    # Create the actual vs predicted plot
-    p_actual_vs_predicted <- ggplot() +
-      geom_point(aes(x = weather_rf_test$Daily_Rainfall_Total_mm, y = predictions_test)) +
-      geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
-      labs(x = "Actual", y = "Predicted", title = "Actual vs Predicted")
-    
-    # Assuming you have actual time series data and forecasted data
-    # Create the time series plot
-    p_time_series <- ggplot() +
-      geom_line(aes(x = weather_rf_train$Date, y = weather_rf_train$Daily_Rainfall_Total_mm), color = "green") +
-      geom_line(aes(x = weather_rf_test$Date, y = predictions_test), color = "blue", linetype = "dotted") +
-      labs(x = "Date", y = "Rainfall (mm)", title = "Time Series of Rainfall")
-    
-    # Return a list containing the model and plots
+    # Return the list of plots
     list(
-      model = rf_model,
+      plotActualVsPredicted = p_actual_vs_predicted,
       plotResiduals = p_residuals,
       plotImportance = p_importance,
-      plotActualVsPredicted = p_actual_vs_predicted,
-      plotTimeSeries = p_time_series
     )
   })
   
-  # Outputs for the plots
-  output$plotResiduals <- renderPlot({ modelOutput()$plotResiduals })
-  output$plotImportance <- renderPlot({ modelOutput()$plotImportance })
-  output$plotActualVsPredicted <- renderPlot({ modelOutput()$plotActualVsPredicted })
-  output$plotTimeSeries <- renderPlot({ modelOutput()$plotTimeSeries })
+  # Render the plots
+  output$plotActualVsPredicted <- renderPlot({
+    modelOutput()$plotActualVsPredicted
+  })
+  
+  output$plotResiduals <- renderPlot({
+    modelOutput()$plotResiduals
+  })
+  
+  output$plotImportance <- renderPlot({
+    modelOutput()$plotImportance
+  })
 }
+  
 # Run the application
 shinyApp(ui = ui, server = server)
