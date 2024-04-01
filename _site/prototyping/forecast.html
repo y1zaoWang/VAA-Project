@@ -307,7 +307,7 @@ logical.return = TRUE, : there is no package called 'ggdendrosf'</code></pre>
 <pre><code>package 'tmap' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-    C:\Users\Yizao\AppData\Local\Temp\Rtmp2nHjhI\downloaded_packages</code></pre>
+    C:\Users\Yizao\AppData\Local\Temp\RtmpshQDXZ\downloaded_packages</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -396,18 +396,18 @@ Call:
                      Number of trees: 500
 No. of variables tried at each split: 3
 
-          Mean of squared residuals: 76.90388
-                    % Var explained: 44.73</code></pre>
+          Mean of squared residuals: 76.7478
+                    % Var explained: 44.85</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View variable importance</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(rf_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                   %IncMSE IncNodePurity
-Month             72.82291      165434.3
-Day               39.36373      182819.4
-Mean_Temperature  45.21820      213805.4
-Max_Temperature   54.50137      213563.3
-Min_Temperature  159.01223      494601.7</code></pre>
+Month             67.53066      164583.2
+Day               37.83141      182733.4
+Mean_Temperature  42.29005      214658.7
+Max_Temperature   53.82814      215712.0
+Min_Temperature  151.02226      492932.0</code></pre>
 </div>
 </div>
 <p>The code chunk below uses&nbsp;<strong>randomForest()</strong>&nbsp;to create the model using the training dataset with the user selected model parameters.</p>

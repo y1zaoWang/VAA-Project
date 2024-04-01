@@ -1,7 +1,9 @@
 ---
 title: " "
 toc: false
-format: html
-editor: visual
+format:
+  html:
     css: landing.css
 ---
+
+Welcome to Group 17's Homepage
