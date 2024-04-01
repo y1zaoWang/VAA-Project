@@ -217,5 +217,5 @@ p_time_series <- ggplot() +
 print(p_time_series)
 ```
 
-```{}
+```         
 ```
