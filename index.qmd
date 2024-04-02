@@ -6,4 +6,4 @@ format:
     css: landing.css
 ---
 
-Welcome to Group 17's Homepage.
+# Welcome to Group 17's Homepage.

@@ -1,4 +1,0 @@
----
-title: "Weather App"
-title-block-banner: true
----

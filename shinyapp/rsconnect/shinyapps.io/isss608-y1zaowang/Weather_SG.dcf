@@ -1,0 +1,12 @@
+name: Weather_SG
+title: Weather_SG
+username: isss608-y1zaowang
+account: isss608-y1zaowang
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11629015
+bundleId:
+url: https://isss608-y1zaowang.shinyapps.io/Weather_SG/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
